@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For You 💖</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+/* ================= BODY & BACKGROUND ================= */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+  height: 100vh;
+  background: black;
+  color: white;
+  overflow: hidden;
+}
+
+/* Galaxy background using CSS gradient + stars */
+body::before {
+  content: '';
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: radial-gradient(circle at 20% 20%, #0d0d0d, #000 70%);
+  z-index: -3;
+}
+
+.star {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: twinkle 3s infinite alternate;
+  pointer-events: none;
+}
+@keyframes twinkle {
+  0% {opacity:0.2;}
+  50% {opacity:1;}
+  100% {opacity:0.2;}
+}
+
+/* ================= PAGES ================= */
+.page {
+  display: none;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  backdrop-filter: blur(6px);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  display: flex;
+  text-align: center;
+}
+
+/* ================= MAGIC TITLE ================= */
+.magic-title {
+  font-family: 'Great Vibes', cursive;
+  font-size: 3rem;
+  color: #fff;
+  text-shadow: 0 0 15px #ff9aa2, 0 0 30px #ffc3a0;
+  animation: floatTitle 3s ease-in-out infinite;
+}
+
+@keyframes floatTitle {
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+/* ================= BUTTONS ================= */
+button {
+  padding: 14px 28px;
+  margin: 10px;
+  border: none;
+  border-radius: 14px;
+  background: rgba(255,255,255,0.15);
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: 0.3s;
+}
+button:hover {
+  background: #ff4d6d;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px #ff4d6d;
+}
+
+/* ================= INPUT ================= */
+input {
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+/* ================= HEARTS ================= */
+.heart {
+  position: fixed;
+  font-size: 20px;
+  animation: float linear forwards;
+  pointer-events: none;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+
+/* ================= FOG + SPARKLES ================= */
+.fog {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: rgba(255,182,193,0.1);
+  mix-blend-mode: screen;
+}
+
+.sparkle {
+  position: fixed;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8);
+  box-shadow: 0 0 8px rgba(255,255,255,0.9);
+  opacity: 0;
+  animation: twinkle 3s infinite;
+}
+
+/* ================= GALLERY ================= */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.gallery img {
+  width: 150px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  box-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+.gallery img:hover {
+  transform: scale(1.1);
+}
+
+/* ================= MODAL ================= */
+.modal {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background: rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.modal img {
+  max-width: 70%;
+  max-height: 60%;
+  border-radius: 12px;
+  transition: transform 0.3s;
+}
+
+.modal-text {
+  margin-top: 15px;
+  font-family: 'Great Vibes', cursive;
+  font-size: 24px;
+  color: #ffcad4;
+  text-shadow: 0 0 5px #fff;
+}
+
+/* ================= MODAL STICKERS ================= */
+.modal-sticker {
+  position: absolute;
+  width: 100px;
+  animation: drift 10s infinite ease-in-out;
+}
+
+@keyframes drift {
+  0% { transform: translate(0,0) rotate(-5deg);}
+  50% { transform: translate(15px,-10px) rotate(5deg);}
+  100% { transform: translate(0,0) rotate(-5deg);}
+}
+
+/* ================= FOOTER ================= */
+footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 0 0 10px #ff4d6d,0 0 20px #ffc3a0;
+}
+
+/* ================= MUSIC ================= */
+.song {
+  background: rgba(255,255,255,0.2);
+  padding: 10px 20px;
+  margin: 8px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.song:hover {
+  transform: scale(1.1);
+  background:#ff4d6d;
+}
+
+/* ================= STICKERS ================= */
+.sticker {
+  position: fixed;
+  width: 80px;
+  pointer-events: none;
+  z-index: 999;
+}
+</style>
+</head>
+<body onclick="startBgMusic()">
+
+<!-- STARS -->
+<div class="fog"></div>
+<script>
+for(let i=0;i<100;i++){
+  const star=document.createElement('div');
+  star.className='star';
+  star.style.left=Math.random()*100+'vw';
+  star.style.top=Math.random()*100+'vh';
+  star.style.width=(Math.random()*2+1)+'px';
+  star.style.height=star.style.width;
+  document.body.appendChild(star);
+}
+</script>
+
+<!-- STICKERS (floating) -->
+<img class="sticker" src="https://media.tenor.com/zU6eOLvp_9EAAAAi/sad.gif" style="top:5vh; left:5vw;">
+<img class="sticker" src="https://media.tenor.com/GcJNco2l1c8AAAAi/bubu-dudu-sseeyall.gif" style="top:20vh; left:80vw;">
+<img class="sticker" src="https://media.tenor.com/1e120JMrQoYAAAAi/bubu-dudu-sseeyall.gif" style="top:65vh; left:15vw;">
+<img class="sticker" src="https://media.tenor.com/M-3rzbe03eAAAAAi/dudu-wearing-glasses-standing.gif" style="top:70vh; left:75vw;">
+<img class="sticker" src="https://media.tenor.com/RWBBk9nNRlEAAAAi/bubu-dudu-sseeyall.gif" style="top:10vh; left: 60vw;">
+
+<!-- LOGIN PAGE -->
+<div id="login" class="page active">
+  <h2>Enter Secret Code 💌</h2>
+  <input id="code" placeholder="Enter code">
+  <button onclick="checkCode()">Enter</button>
+  <p id="msg"></p>
+</div>
+
+<!-- MENU PAGE -->
+<div id="menu" class="page">
+  <h1 class="magic-title">For You 💖</h1>
+  <button onclick="showPage('letter')">💌 Love Letter</button>
+  <button onclick="showPage('music')">🎵 Music</button>
+  <button onclick="showPage('gallery')">🖼️ Gallery</button>
+</div>
+
+<!-- LOVE LETTER -->
+<div id="letter" class="page">
+  <h1>💌 My Love Letter</h1>
+  <p id="letterText"></p>
+  <button onclick="showPage('menu')">⬅ Back</button>
+</div>
+
+<!-- MUSIC -->
+<div id="music" class="page">
+  <h1>🎵 Choose a Song</h1>
+  <div class="song" onclick="playSong('https://files.catbox.moe/851g79.mp3')">💖 Song 1</div>
+  <div class="song" onclick="playSong('https://files.catbox.moe/onohuf.mp3')">💕 Song 2</div>
+  <div class="song" onclick="playSong('https://files.catbox.moe/lwkxme.mp3')">🥰 Song 3</div>
+  <audio id="player" controls></audio>
+  <button onclick="showPage('menu')">⬅ Back</button>
+</div>
+
+<!-- GALLERY -->
+<div id="gallery" class="page">
+  <h1>🍅 Gallery</h1>
+  <div class="gallery">
+    <img src="Picture1.jpg" data-text="Mai love 😍❤️ ">
+    <img src="Picture2.jpg" data-text="Sweet bby 😭❤️ ">
+    <img src="Picture3.jpg" data-text="Kur oy slanh mes 😭❤️">
+    <img src="Picture4.jpg" data-text="Cute mes vryy 😘❤️">
+    <img src="Picture5.jpg" data-text="Sart mes pov meas 😭❤️">
+    <img src="Picture6.jpg" data-text="My shinsine ❤️">
+    <img src="Picture7.jpg" data-text="My Princesss ❤️">
+    <img src="Picture8.jpg" data-text="Special Person 😭❤️">
+  </div>
+  <button onclick="showPage('menu')">⬅ Back</button>
+</div>
+
+<!-- MODAL FOR ZOOM -->
+<div id="modal" class="modal" onclick="closeModal(event)">
+  <img id="modal-img">
+  <div class="modal-text" id="modal-text"></div>
+</div>
+
+<!-- BACKGROUND MUSIC -->
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/g9vvy5.mp3" type="audio/mpeg">
+</audio>
+
+<!-- FOOTER -->
+<footer>Developed by Por Kmeng Chlery</footer>
+
+<script>
+// ================= BACKGROUND MUSIC =================
+let started=false;
+function startBgMusic(){
+  if(!started){
+    document.getElementById("bgMusic").play();
+    started=true;
+  }
+}
+
+// ================= LOGIN =================
+function checkCode(){
+  const code = document.getElementById("code").value;
+  if(code==="08807"){
+    showPage("menu");
+  } else {
+    document.getElementById("msg").innerText="Wrong 😢";
+  }
+}
+
+// ================= PAGE SWITCH =================
+function showPage(id){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+// ================= PLAYER =================
+let player = document.getElementById("player");
+function playSong(src){
+  document.getElementById("bgMusic").pause(); // stop bg music
+  player.src=src;
+  player.play();
+}
+
+// ================= LOVE LETTER TYPEWRITER =================
+const letterContent = `You are my happiness 💖
+I miss you every day ❤️
+Thank you for being in my life 😭💖
+Sweet moments together 😭❤️
+Always love you 💖
+Bong nirk oun eng has nas Pov meas 😭💖
+Nirk klg yk tah men ten 😭💖`;
+let letterIndex=0, typingInterval;
+function startLetterAnimation(){
+  clearInterval(typingInterval);
+  const letterText=document.getElementById("letterText");
+  letterText.innerText='';
+  letterIndex=0;
+  typingInterval=setInterval(()=>{
+    if(letterIndex<letterContent.length){
+      letterText.innerText+=letterContent[letterIndex++];
+    } else clearInterval(typingInterval);
+  },40);
+}
+
+// ================= HEARTS =================
+setInterval(()=>{
+  let h=document.createElement("div");
+  h.className="heart";
+  h.innerText="💖";
+  h.style.left=Math.random()*100+"vw";
+  h.style.animationDuration=(Math.random()*3+3)+"s";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},500);
+
+// ================= SPARKLES =================
+function createSparkle(){
+  const s=document.createElement("div");
+  s.className="sparkle";
+  s.style.left=Math.random()*100+"vw";
+  s.style.top=Math.random()*100+"vh";
+  const size=Math.random()*3+2;
+  s.style.width=size+"px"; s.style.height=size+"px";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),3000);
+}
+setInterval(()=>{createSparkle(); createSparkle();},400);
+
+// ================= GALLERY MODAL =================
+const galleryImgs = document.querySelectorAll('.gallery img');
+const modal = document.getElementById('modal');
+const modalImg = document.getElementById('modal-img');
+const modalText = document.getElementById('modal-text');
+
+galleryImgs.forEach(img=>{
+  img.addEventListener('click',()=>{
+    modal.style.display='flex';
+    modalImg.src=img.src;
+    modalText.innerText=img.dataset.text;
+  });
+});
+
+function closeModal(e){
+  if(e.target === modal){
+    modal.style.display='none';
+  }
+}
+
+// ================= START LETTER =================
+document.getElementById("letter").addEventListener("click",startLetterAnimation);
+</script>
+
+</body>
+</html>
